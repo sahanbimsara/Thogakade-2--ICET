@@ -6,6 +6,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.sql.*;
+
 public class CustomerFormController {
 
     @FXML
@@ -47,6 +49,7 @@ public class CustomerFormController {
 
     @FXML
     void btnReloadOnAction(ActionEvent event) {
+        loadTable();
 
     }
 
@@ -57,6 +60,27 @@ public class CustomerFormController {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+
+    }
+
+    private void loadTable(){
+        try {
+           Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade2","root","sahan2004");
+            System.out.println(connection);
+
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("Select * from customer");
+
+            while (resultSet.next()) System.out.println(resultSet.getString(4));
+
+            System.out.println(resultSet.next());
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
