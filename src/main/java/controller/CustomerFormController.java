@@ -1,10 +1,13 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Customer;
 
 import java.sql.*;
@@ -83,11 +86,16 @@ public class CustomerFormController {
                         resultSet.getString(3),
                         resultSet.getDouble(4)
                 ));
-                System.out.println(customerList);
             }
 
+            ObservableList<Customer> customerObservableList = FXCollections.observableArrayList();
+            customerList.forEach(customer -> customerObservableList.add(customer));
+            tblCustomers.setItems(customerObservableList);
 
-            System.out.println(resultSet.next());
+            colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+            colSalary.setCellValueFactory(new PropertyValueFactory<>("address"));
 
 
         } catch (SQLException e) {
