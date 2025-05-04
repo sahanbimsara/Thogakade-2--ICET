@@ -73,8 +73,6 @@ public class CustomerFormController {
     private void loadTable(){
         try {
            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade2","root","sahan2004");
-            System.out.println(connection);
-
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("Select * from customer");
@@ -95,7 +93,7 @@ public class CustomerFormController {
             colId.setCellValueFactory(new PropertyValueFactory<>("id"));
             colName.setCellValueFactory(new PropertyValueFactory<>("name"));
             colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-            colSalary.setCellValueFactory(new PropertyValueFactory<>("address"));
+            colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
 
 
         } catch (SQLException e) {
