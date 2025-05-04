@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -48,6 +49,24 @@ public class CustomerFormController implements Initializable {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade2", "root", "sahan2004");
+            PreparedStatement psTm = connection.prepareStatement("Insert Into customer VALUES (?,?,?,?)");
+
+            psTm.setString(1,txtId.getText());
+            psTm.setString(2,txtName.getText());
+            psTm.setString(3,txtAddress.getText());
+            psTm.setDouble(4,Double.parseDouble(txtSalary.getText()));
+
+            if (psTm.executeUpdate()>0){
+                new Alert(Alert.AlertType.INFORMATION,"Customer Added!!!").show();
+            }
+
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
