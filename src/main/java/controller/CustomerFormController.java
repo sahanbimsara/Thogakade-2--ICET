@@ -4,17 +4,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Customer;
 
+import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class CustomerFormController {
+public class CustomerFormController implements Initializable {
 
     @FXML
     private TableColumn colAddress;
@@ -68,7 +71,14 @@ public class CustomerFormController {
     void btnUpdateOnAction(ActionEvent event) {
 
     }
-    List<Customer> customerList = new ArrayList<>();
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadTable();
+    }
+
+
+        List<Customer> customerList = new ArrayList<>();
 
     private void loadTable(){
         try {
@@ -87,8 +97,11 @@ public class CustomerFormController {
             }
 
             ObservableList<Customer> customerObservableList = FXCollections.observableArrayList();
-            customerList.forEach(customer -> customerObservableList.add(customer));
-            tblCustomers.setItems(customerObservableList);
+
+           // customerList.forEach(customer -> customerObservableList.add(customer));
+           // tblCustomers.setItems(customerObservableList);
+
+            tblCustomers.setItems(FXCollections.observableArrayList(customerList));
 
             colId.setCellValueFactory(new PropertyValueFactory<>("id"));
             colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -103,4 +116,5 @@ public class CustomerFormController {
 
     }
 
-}
+
+    }
