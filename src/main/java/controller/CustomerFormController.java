@@ -5,8 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import model.Customer;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerFormController {
 
@@ -62,6 +65,7 @@ public class CustomerFormController {
     void btnUpdateOnAction(ActionEvent event) {
 
     }
+    List<Customer> customerList = new ArrayList<>();
 
     private void loadTable(){
         try {
@@ -72,7 +76,16 @@ public class CustomerFormController {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("Select * from customer");
 
-            while (resultSet.next()) System.out.println(resultSet.getString(4));
+            while (resultSet.next()) {
+                customerList.add(new Customer(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getDouble(4)
+                ));
+                System.out.println(customerList);
+            }
+
 
             System.out.println(resultSet.next());
 
